@@ -42,11 +42,11 @@
 
     v-on:poop="" // in the string you call a function you want to do something in response to the poop. For example
 
-    v-on:poop="console.log('mmmm mmm Poopy')"
+    v-on:poop="console.log('mmmm mmm stuff')"
 
     You also notice the $event that we pass. If the child component passes an argument with their event emission:
 
-    this.$emit('poop', someArgument, someArgument2)
+    this.$emit('stuff', someArgument, someArgument2)
 
     Then we can use $event to get those arguments. In this case we are getting the index that is passed up and calling
     the removeActivity() function that we've defined in our methods object.
