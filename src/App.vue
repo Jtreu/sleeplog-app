@@ -38,11 +38,11 @@
     v-on:add="doSomething()".
 
     v-on:remove is a way for us to handle when the child component emits an even called 'remove'. Keep in mind these names are arbitrary. You
-    could call it 'poop' or whatever. So if you wanted to listen to the event 'poop' you would do
+    could call it 'stuff' or whatever. So if you wanted to listen to the event 'stuff' you would do
 
-    v-on:poop="" // in the string you call a function you want to do something in response to the poop. For example
+    v-on:stuff="" // in the string you call a function you want to do something in response to the stuff. For example
 
-    v-on:poop="console.log('mmmm mmm stuff')"
+    v-on:stuff="console.log('mmmm mmm stuff')"
 
     You also notice the $event that we pass. If the child component passes an argument with their event emission:
 
@@ -86,13 +86,9 @@ Import other components you want to use
 import EntryDialog from './components/EntryDialog'
 
 export default {
-  /*
-  Name the component (required)
-  */
+  // Name the component (required)
   name: 'app',
-  /*
-  If you use components in other files, reference them here
-  */
+  // If you use components in other files, reference them here
   components: {
     /*
     In our markup, we'll reference EntryDialog as 'sl-entry-dialog', but you can call it whatever.. just stay consistent.

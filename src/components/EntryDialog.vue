@@ -64,43 +64,31 @@
 </template>
 
 <script>
-/*
-Import the 3rd party components we'll use in our markup
-*/
+// Import the 3rd party components we'll use in our markup
 import UiSelect from './KeenUI/UiSelect'
 import UiSlider from './KeenUI/UiSlider'
 import UiButton from './KeenUI/UiButton'
 
 // Export this component so other components can use it
 export default {
-  /*
-  Name the component (required)
-  */
+  // Name the component (required)
   name: 'sl-entry-dialog',
-  /*
-  Declare how you'd like to name the components in the markup
-  */
+  // Declare how you'd like to name the components in the markup
   components: {
     'ui-select': UiSelect,
     'ui-slider': UiSlider,
     'ui-button': UiButton
   },
-  /*
-  Define the properties that any parent component can pass down this component (the child)
-  */
+  // Define the properties that any parent component can pass down this component (the child)
   props: {
-    /*
-    open is a prop that is expected to be of type Boolean and have a default value of false (if the parent doesn't pass anything down)
-    */
+    // open is a prop that is expected to be of type Boolean and have a default value of false (if the parent doesn't pass anything down)
     open: {
       type: Boolean,
       default () {
         return false
       }
     },
-    /*
-    entry is a prop that is expected to be an Object and have a default (if the parent doesn't pass anything)
-    */
+    // entry is a prop that is expected to be an Object and have a default (if the parent doesn't pass anything)
     entry: {
       type: Object,
       default () {
