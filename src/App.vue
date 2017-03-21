@@ -10,11 +10,21 @@
     <table class="table">
       <tr>
         <th>DATE:</th>
-        <th v-for="time in times">{{time}}</th>
+        <th>Day of the Week</th>
+        <th>Type of Day
+            <p id="day_type">Work, School, Off, Vacation (Vac)</p>
+        </th>
+        <th class="verticalTableHeader" v-for="time in times">{{time}}</th>
       </tr>
       <tr v-for="date in dates">
         <td>{{date}}</td>
-        <td v-for="time in times" v-on:click="openDialog(date, time)"></td>
+        <!-- Day of Wk/Type of Day Entries -->
+        <td></td>
+        <td></td>
+        <!-- Timeslot Entries -->
+        <td v-for="time in times"
+          :class="{ 'shaded': doesEntryContainSleep(date, time) }"
+          v-on:click="openDialog(date, time)">{{displayInBox(date, time).toString()}}</td>
       </tr>
     </table>
   </div>
@@ -35,7 +45,7 @@ export default {
       dates: [],
       dialogIsOpen: false,
       activeEntry: { date: '', time: '', activities: [] },
-      defaultActivites: ['Sleep', 'Caffeine', 'Medicine']
+      defaultActivites: ['Sleep', 'Caffeine', 'Medicine', 'Alcohol', 'Exercise']
     }
   },
   mounted () {
@@ -49,12 +59,51 @@ export default {
     this.initEntries()
   },
   methods: {
+    doesEntryContainSleep (date, time) {
+      if (!this.entries || !this.entries[date][time] || this.entries[date][time].activities.length < 1) {
+        return false
+      }
+
+      let activities = this.entries[date][time].activities
+      activities = Object.keys(activities).map(key => activities[key])
+
+      for (let i = 0; i < activities.length; i++) {
+        if (activities[i].name === 'Sleep' && activities[i].isDone) {
+          return true
+        }
+      }
+
+      return false
+    },
+
+    displayInBox (date, time) {
+      let activities = this.entries[date][time].activities
+      activities = Object.keys(activities).map(key => activities[key])
+      let displayThis = []
+
+      for (let i = 0; i < activities.length; i++) {
+        if (activities[i].name === 'Caffeine' && activities[i].isDone) {
+          displayThis.push('C')
+        }
+        if (activities[i].name === 'Medicine' && activities[i].isDone) {
+          displayThis.push('M')
+        }
+
+        if (activities[i].name === 'Alcohol' && activities[i].isDone) {
+          displayThis.push('A')
+        }
+        if (activities[i].name === 'Exercise' && activities[i].isDone) {
+          displayThis.push('E')
+        }
+        if (activities[i].name === 'Sleep' && activities[i].isDone) {
+          displayThis = []
+          break
+        }
+      }
+      return displayThis
+    },
     initEntries () {
       var entries = {}
-      var defaultActivity = {
-        name: 'Sleep',
-        isDone: false
-      }
 
       for (var i = 0; i < this.dates.length; i++) {
         entries[`${this.dates[i]}`] = {}
@@ -62,7 +111,7 @@ export default {
           entries[`${this.dates[i]}`][`${this.times[j]}`] = {
             date: this.dates[i],
             time: this.times[j],
-            activities: [defaultActivity]
+            activities: []
           }
         }
       }
@@ -72,16 +121,16 @@ export default {
     generateTimes () {
       var am = []
       var pm = []
+      pm.push('NOON')
 
       for (var i = 1; i < 12; i++) {
         am.push(i + 'a')
         pm.push(i + 'p')
       }
 
-      am.push('NOON')
       pm.push('MIDNIGHT')
 
-      this.times = am.concat(pm)
+      this.times = pm.concat(am)
     },
     generateDates () {
       var dates = [new Date()]
@@ -96,6 +145,21 @@ export default {
         dates[j] = dates[j].toLocaleDateString()
       }
       this.dates = dates
+    },
+    generateDayOfWeek () {
+      var d = new Date();
+      var weekday = new Array(7);
+      weekday[0] =  "Sunday";
+      weekday[1] = "Monday";
+      weekday[2] = "Tuesday";
+      weekday[3] = "Wednesday";
+      weekday[4] = "Thursday";
+      weekday[5] = "Friday";
+      weekday[6] = "Saturday";
+
+      var day = weekday[dates.getDay()];
+
+      return day;
     },
     openDialog (date, time) {
       this.activeEntry = this.entries[date][time]
@@ -158,5 +222,29 @@ td, th {
     border: 1px solid #dddddd;
     text-align: left;
     padding: 8px;
+}
+
+.verticalTableHeader {
+    text-align:center;
+    white-space:nowrap;
+    transform-origin:50% 50%;
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+.verticalTableHeader:before {
+    content:'';
+    padding-top:80%;/* takes width as reference, + 10% for faking some extra padding */
+    display:inline-block;
+    vertical-align:middle;
+}
+#day_type {
+	font-size: 0.95em;
+	font-weight: 500;
+}
+.shaded {
+  background-color: grey;
 }
 </style>

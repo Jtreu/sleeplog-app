@@ -37,13 +37,13 @@ import UiCheckbox from './KeenUI/UiCheckbox'
 import UiButton from './KeenUI/UiButton'
 
 export default {
-  name: 'sl-entry-dialog',
+  name: 'sl-entry-dialog', // The html tag in the markup. <sl-entry-dialog>
   components: {
-    'ui-select': UiSelect,
-    'ui-checkbox': UiCheckbox,
-    'ui-button': UiButton
+    'ui-select': UiSelect, // <ui-select>
+    'ui-checkbox': UiCheckbox, // <ui-checkbox>
+    'ui-button': UiButton // <ui-button>
   },
-  props: { // props is data that is stored locally in this component but compes from the parent component..
+  props: { // props is data that is stored locally in this component but comes from the parent component..
     open: {
       type: Boolean,
       default () {
@@ -88,7 +88,6 @@ export default {
 
       let duplicate = this.checkForDuplicateOptions(activities)
       if (duplicate.exists) {
-        console.log('removing')
         this.removeActivity(duplicate.index)
       }
     },
@@ -104,8 +103,6 @@ export default {
           duplicate.index = i
         }
       }
-
-      console.log(duplicate)
 
       return duplicate
     },
