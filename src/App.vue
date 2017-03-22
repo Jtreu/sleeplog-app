@@ -17,9 +17,9 @@
         <th class="verticalTableHeader" v-for="time in times">{{time}}</th>
       </tr>
       <tr v-for="date in dates">
-        <td>{{date}}</td>
+        <td>{{date.toLocaleDateString()}}</td>
         <!-- Day of Wk/Type of Day Entries -->
-        <td></td>
+        <td>{{date.toLocaleDateString('eng', {weekday: 'long'})}}</td>
         <td></td>
         <!-- Timeslot Entries -->
         <td v-for="time in times"
@@ -142,24 +142,9 @@ export default {
       }
 
       for (var j = 0; j < dates.length; j++) {
-        dates[j] = dates[j].toLocaleDateString()
+        dates[j] = dates[j]
       }
       this.dates = dates
-    },
-    generateDayOfWeek () {
-      var d = new Date();
-      var weekday = new Array(7);
-      weekday[0] =  "Sunday";
-      weekday[1] = "Monday";
-      weekday[2] = "Tuesday";
-      weekday[3] = "Wednesday";
-      weekday[4] = "Thursday";
-      weekday[5] = "Friday";
-      weekday[6] = "Saturday";
-
-      var day = weekday[dates.getDay()];
-
-      return day;
     },
     openDialog (date, time) {
       this.activeEntry = this.entries[date][time]
