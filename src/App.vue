@@ -20,7 +20,13 @@
         <td>{{date.toLocaleDateString()}}</td>
         <!-- Day of Wk/Type of Day Entries -->
         <td>{{date.toLocaleDateString('eng', {weekday: 'long'})}}</td>
-        <td></td>
+        <td>
+          <ui-select
+             v-on:select="setDayType(date, $event)"
+             :placeholder="'Select Day'"
+             :options="dayOptions"
+             :value="selectedOption"></ui-select>
+        </td>
         <!-- Timeslot Entries -->
         <td v-for="time in times"
           :class="{ 'shaded': doesEntryContainSleep(date, time) }"
@@ -32,11 +38,13 @@
 
 <script>
 import EntryDialog from './components/EntryDialog'
+import UiSelect from 'components/KeenUI/UiSelect'
 
 export default {
   name: 'app',
   components: {
-    'sl-entry-dialog': EntryDialog
+    'sl-entry-dialog': EntryDialog,
+    'ui-select': UiSelect // <ui-button>
   },
   data () {
     return {
@@ -45,16 +53,16 @@ export default {
       dates: [],
       dialogIsOpen: false,
       activeEntry: { date: '', time: '', activities: [] },
-      defaultActivites: ['Sleep', 'Caffeine', 'Medicine', 'Alcohol', 'Exercise']
+      defaultActivites: ['Sleep', 'Caffeine', 'Medicine', 'Alcohol', 'Exercise'],
+      dayOptions: ['Work', 'School', 'Off', 'Vacation'],
+      selectedOption: ''
     }
   },
   mounted () {
     // Initialize times array
     this.generateTimes()
-
     // Initialize dates array
     this.generateDates()
-
     // Initialize entries object
     this.initEntries()
   },
@@ -63,24 +71,19 @@ export default {
       if (!this.entries || !this.entries[date][time] || this.entries[date][time].activities.length < 1) {
         return false
       }
-
       let activities = this.entries[date][time].activities
       activities = Object.keys(activities).map(key => activities[key])
-
       for (let i = 0; i < activities.length; i++) {
         if (activities[i].name === 'Sleep' && activities[i].isDone) {
           return true
         }
       }
-
       return false
     },
-
     displayInBox (date, time) {
       let activities = this.entries[date][time].activities
       activities = Object.keys(activities).map(key => activities[key])
       let displayThis = []
-
       for (let i = 0; i < activities.length; i++) {
         if (activities[i].name === 'Caffeine' && activities[i].isDone) {
           displayThis.push('C')
@@ -88,7 +91,6 @@ export default {
         if (activities[i].name === 'Medicine' && activities[i].isDone) {
           displayThis.push('M')
         }
-
         if (activities[i].name === 'Alcohol' && activities[i].isDone) {
           displayThis.push('A')
         }
@@ -104,7 +106,6 @@ export default {
     },
     initEntries () {
       var entries = {}
-
       for (var i = 0; i < this.dates.length; i++) {
         entries[`${this.dates[i]}`] = {}
         for (var j = 0; j < this.times.length; j++) {
@@ -115,32 +116,26 @@ export default {
           }
         }
       }
-
       this.entries = entries
     },
     generateTimes () {
       var am = []
       var pm = []
       pm.push('NOON')
-
       for (var i = 1; i < 12; i++) {
         am.push(i + 'a')
         pm.push(i + 'p')
       }
-
       pm.push('MIDNIGHT')
-
       this.times = pm.concat(am)
     },
     generateDates () {
       var dates = [new Date()]
-
       for (var i = 1; i < 10; i++) {
         // get the next day after the previous
         var thisDate = new Date(dates[i - 1].getTime() - (24 * 60 * 60 * 1000))
         dates.push(thisDate)
       }
-
       for (var j = 0; j < dates.length; j++) {
         dates[j] = dates[j]
       }
@@ -157,14 +152,11 @@ export default {
       if (!this.activeEntry.date || !this.activeEntry.time) {
         return
       }
-
       // Don't add more activities than available
       if (this.entries[this.activeEntry.date][this.activeEntry.time].activities.length >= this.defaultActivites.length) {
         return
       }
-
       let availableName = this.getAvailableActivityName(this.entries[this.activeEntry.date][this.activeEntry.time].activities)
-
       this.entries[this.activeEntry.date][this.activeEntry.time].activities.push({
         name: availableName,
         isDone: false
@@ -179,9 +171,15 @@ export default {
       let options = this.defaultActivites
       selected = JSON.parse(JSON.stringify(selected))
       selected = Object.keys(selected).map(key => selected[key].name) // e.g. ['Medicine', 'Sleep']
-
       options = options.filter(i => selected.indexOf(i) < 0)
       return options[0]
+    },
+    setDayType (date, selectedName) {
+      this.activeEntry = this.entries[date]
+      // this.entries[this.activeEntry.date].typeday.push(selectedName)
+
+      console.log(name)
+      this.selectedOption = selectedName
     }
   }
 }
@@ -196,19 +194,16 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
-
 table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
     width: 100%;
 }
-
 td, th {
     border: 1px solid #dddddd;
     text-align: left;
     padding: 8px;
 }
-
 .verticalTableHeader {
     text-align:center;
     white-space:nowrap;

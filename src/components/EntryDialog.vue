@@ -11,7 +11,7 @@
               <ui-select
                 v-model="activity.name"
                 v-on:select="setActivity()"
-                :placeholder="'Select and activity'"
+                :placeholder="'Select an activity'"
                 :options="activityOptions[index]"></ui-select>
             </div>
             <div class="input-container">
@@ -35,7 +35,6 @@
 import UiSelect from './KeenUI/UiSelect'
 import UiCheckbox from './KeenUI/UiCheckbox'
 import UiButton from './KeenUI/UiButton'
-
 export default {
   name: 'sl-entry-dialog', // The html tag in the markup. <sl-entry-dialog>
   components: {
@@ -59,7 +58,8 @@ export default {
           activities: [{
             name: 'Sleep',
             isDone: false
-          }]
+          }],
+          typeday: []
         }
       }
     },
@@ -77,7 +77,6 @@ export default {
     activityOptions () {
       let activities = JSON.parse(JSON.stringify(this.entry.activities))
       activities = Object.keys(activities).map(key => activities[key].name)
-
       return this.calculateAvailableOptions(activities)
     }
   },
@@ -85,7 +84,6 @@ export default {
     setActivity () {
       let activities = JSON.parse(JSON.stringify(this.entry.activities))
       activities = Object.keys(activities).map(key => activities[key].name)
-
       let duplicate = this.checkForDuplicateOptions(activities)
       if (duplicate.exists) {
         this.removeActivity(duplicate.index)
@@ -94,7 +92,6 @@ export default {
     checkForDuplicateOptions (activities) {
       let options = {}
       let duplicate = { exists: false, index: 0 }
-
       for (let i = 0; i < activities.length; i++) {
         if (!options[activities[i]]) {
           options[activities[i]] = true
@@ -103,24 +100,19 @@ export default {
           duplicate.index = i
         }
       }
-
       return duplicate
     },
     calculateAvailableOptions (activities) {
       let options = []
       let selected = []
-
       if (!selected) {
         return
       }
-
       for (let i = 0; i < activities.length; i++) {
         options[i] = JSON.parse(JSON.stringify(this.defaultActivites)) || []
         selected[i] = activities.slice(0, i) || []
-
         options[i] = options[i].filter(arrIndex => selected[i].indexOf(arrIndex) < 0)
       }
-
       return options
     },
     close (event) {
@@ -138,29 +130,23 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-
 .entry-dialog {
   text-align: left;
 }
-
 .activityItem {
   display: block;
   position: relative;
-
   .name-container, .input-container, .remove-btn-container {
     vertical-align: top;
     display: inline-block;
   }
-
   .name-container, .input-container {
     width: 200px;
   }
-
   .name-container {
     margin-right: 30px;
   }
 }
-
 .modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
@@ -173,7 +159,6 @@ export default {
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
-
 .modal-content-container {
     background-color: #fefefe;
     margin: 15% auto; /* 15% from the top and centered */
