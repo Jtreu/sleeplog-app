@@ -1,0 +1,7 @@
+{
+  "database": "sleeplog-app-test",
+  "url": "",
+  "username": "",
+  "password": "",
+  "fullURI": "mongodb://username:password@url/database"
+}

@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div class="entry-table">
     <sl-entry-dialog class="dialog"
       :open="dialogIsOpen"
       :entry="activeEntry"
@@ -7,38 +7,43 @@
       v-on:add="addActivity()"
       v-on:remove="removeActivity($event)"
       v-on:close="closeDialog()"></sl-entry-dialog>
-    <table class="table">
-      <tr>
-        <th>DATE:</th>
-        <th>Day of the Week</th>
-        <th>Type of Day
-            <p id="day_type">Work, School, Off, Vacation (Vac)</p>
-        </th>
-        <th class="verticalTableHeader" v-for="time in times">{{time}}</th>
-      </tr>
-      <tr v-for="date in dates">
-        <td>{{date.toLocaleDateString()}}</td>
-        <!-- Day of Wk/Type of Day Entries -->
-        <td>{{date.toLocaleDateString('eng', {weekday: 'long'})}}</td>
-        <td>
-          <ui-select
-             v-on:select="setDayType(date, $event)"
-             :placeholder="'Select Day'"
-             :options="dayOptions"
-             :value="selectedOption"></ui-select>
-        </td>
-        <!-- Timeslot Entries -->
-        <td v-for="time in times"
-          :class="{ 'shaded': doesEntryContainSleep(date, time) }"
-          v-on:click="openDialog(date, time)">{{displayInBox(date, time).toString()}}</td>
-      </tr>
-    </table>
+    <div class="table-container">
+      <table class="description-table">
+        <tr>
+          <th>DATE:</th>
+          <th>Day of the Week</th>
+          <th>Type of Day
+              <p id="day_type">Work, School, Off, Vacation (Vac)</p>
+          </th>
+        </tr>
+        <tr v-for="date in dates">
+          <td>{{ date.toLocaleDateString() }}</td>
+          <td>{{ date.toLocaleDateString('eng', {weekday: 'long'}) }}</td>
+          <td>
+            <ui-select v-on:input="setDayType(date, $event)"
+               :placeholder="'Select Day'"
+               :options="dayOptions"
+               :value="selectedDayOptions[date] || 'Off'"></ui-select>
+          </td>
+        </tr>
+      </table>
+      <table class="times-table">
+        <tr>
+          <th class="verticalTableHeader" v-for="time in times">{{time}}</th>
+        </tr>
+        <tr v-for="date in dates">
+          <td v-for="time in times"
+            :class="{ 'shaded': doesEntryContainSleep(date, time) }"
+            v-on:click="openDialog(date, time)">{{displayInBox(date, time).toString()}}</td>
+        </tr>
+      </table>
+    </div>
   </div>
 </template>
 
 <script>
-import EntryDialog from './components/EntryDialog'
-import UiSelect from 'components/KeenUI/UiSelect'
+import EntryDialog from './EntryDialog'
+import UiSelect from './KeenUI/UiSelect'
 
 export default {
   name: 'app',
@@ -55,7 +60,7 @@ export default {
       activeEntry: { date: '', time: '', activities: [] },
       defaultActivites: ['Sleep', 'Caffeine', 'Medicine', 'Alcohol', 'Exercise'],
       dayOptions: ['Work', 'School', 'Off', 'Vacation'],
-      selectedOption: ''
+      selectedDayOptions: {}
     }
   },
   mounted () {
@@ -108,6 +113,7 @@ export default {
       var entries = {}
       for (var i = 0; i < this.dates.length; i++) {
         entries[`${this.dates[i]}`] = {}
+        // this.selectedDayOptions[this.dates[i]] = ''
         for (var j = 0; j < this.times.length; j++) {
           entries[`${this.dates[i]}`][`${this.times[j]}`] = {
             date: this.dates[i],
@@ -170,30 +176,22 @@ export default {
     getAvailableActivityName (selected) {
       let options = this.defaultActivites
       selected = JSON.parse(JSON.stringify(selected))
-      selected = Object.keys(selected).map(key => selected[key].name) // e.g. ['Medicine', 'Sleep']
+      selected = Object.keys(selected).map(key => selected[key].name)
       options = options.filter(i => selected.indexOf(i) < 0)
       return options[0]
     },
     setDayType (date, selectedName) {
-      this.activeEntry = this.entries[date]
-      // this.entries[this.activeEntry.date].typeday.push(selectedName)
-
-      console.log(name)
-      this.selectedOption = selectedName
+      this.$set(this.selectedDayOptions, date, selectedName)
     }
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+.table-container {
+  width: 50px;
 }
+
 table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
@@ -205,9 +203,9 @@ td, th {
     padding: 8px;
 }
 .verticalTableHeader {
-    text-align:center;
-    white-space:nowrap;
-    transform-origin:50% 50%;
+    text-align: center;
+    white-space: nowrap;
+    transform-origin: 50% 50%;
     -webkit-transform: rotate(90deg);
     -moz-transform: rotate(90deg);
     -ms-transform: rotate(90deg);
@@ -215,8 +213,8 @@ td, th {
     transform: rotate(90deg);
 }
 .verticalTableHeader:before {
-    content:'';
-    padding-top:80%;/* takes width as reference, + 10% for faking some extra padding */
+    content: '';
+    padding-top:80%;
     display:inline-block;
     vertical-align:middle;
 }

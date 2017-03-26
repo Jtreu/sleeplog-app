@@ -35,6 +35,7 @@
 import UiSelect from './KeenUI/UiSelect'
 import UiCheckbox from './KeenUI/UiCheckbox'
 import UiButton from './KeenUI/UiButton'
+
 export default {
   name: 'sl-entry-dialog', // The html tag in the markup. <sl-entry-dialog>
   components: {
@@ -133,6 +134,7 @@ export default {
 .entry-dialog {
   text-align: left;
 }
+
 .activityItem {
   display: block;
   position: relative;
