@@ -4,8 +4,8 @@
 
 ## Services
 
-* Firebase Hosting - www.sleeplog-app.com host
-* Heroku - api.sleeplog-app.com host
+* Firebase Hosting - https://www.sleeplog-app.com host
+* Heroku - https://api.sleeplog-app.com host
 * Google Domains - Domain provider
 * Mailgun - Email service
 * MLab - MongoDB provider
