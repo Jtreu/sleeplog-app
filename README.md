@@ -1,5 +1,7 @@
-![alt text](https://www.sleeplog-app.com/static/logo.png "Logo Title Text 1")
-# Sleeplog-app
+<p align="center">
+  <img src="https://www.sleeplog-app.com/static/logo.png"/>
+  <span style="font-size:36px">Sleeplog-app</span>
+</p>
 
 > An activity logger for neurologists and patients
 
