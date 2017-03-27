@@ -1,3 +1,4 @@
+![alt text](https://www.sleeplog-app.com/static/logo.png "Logo Title Text 1")
 # Sleeplog-app
 
 > An activity logger for neurologists and patients
