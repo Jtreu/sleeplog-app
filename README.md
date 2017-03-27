@@ -1,7 +1,11 @@
-<p align="center">
-  <img src="https://www.sleeplog-app.com/static/logo.png"/>
-  <span style="font-size:36px">Sleeplog-app</span>
-</p>
+<h1 align="center">
+  <br>
+  <a href="https://www.sleeplog-app.com"><img src="https://www.sleeplog-app.com/static/logo.png" alt="WebTorrent" width="200"></a>
+  <br>
+  Sleeplog-app
+  <br>
+  <br>
+</h1>
 
 > An activity logger for neurologists and patients
 
