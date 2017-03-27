@@ -121,7 +121,7 @@ func main() {
 
 	router := bone.New()
 	n := negroni.New()
-	// n.UseFunc(w.ForceHTTPS)
+	n.UseFunc(w.ForceHTTPS)
 	n.UseFunc(w.CORS)
 
 	router.Get("/", http.HandlerFunc(w.GetIndex))
