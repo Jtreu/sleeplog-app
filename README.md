@@ -1,4 +1,4 @@
-# sleep-log-app
+# Sleeplog-app
 
 > An activity logger for neurologists and patients
 
