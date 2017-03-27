@@ -12,6 +12,7 @@ type UserAccount struct {
 	Email       string      `json:"email"`
 	Username    string      `json:"username"`
 	Alias       string      `json:"alias"`
+	Entries     interface{} `json:"entries"`
 	Description string      `json:"description"`
 	Status      string      `json:"status"`
 	Media       interface{} `json:"media"`
@@ -69,6 +70,7 @@ func (handler *WebHandler) GetSessionTokenUser(res http.ResponseWriter, req *htt
 	data.User.Email = user.Email
 	data.User.Username = user.Username
 	data.User.Alias = user.Alias
+	data.User.Entries = user.Entries
 	data.User.Description = user.Description
 	data.User.Status = user.Status
 	data.User.Media = user.Media

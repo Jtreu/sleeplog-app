@@ -179,6 +179,22 @@ func (repo *DbUserRepo) UpdatePassword(user domain.User) error {
 	return repo.dbHandler.Update(UserCollection, Query{"uid": user.UID}, change, &updatedUser)
 }
 
+func (repo *DbUserRepo) UpdateEntries(user domain.User) error {
+	update := Query{}
+
+	for date := range user.Entries {
+		update[fmt.Sprintf("entries.%v", date)] = user.Entries[date]
+	}
+
+	change := Change{
+		Update:    Query{"$set": update},
+		ReturnNew: true,
+	}
+
+	var updatedUser domain.User
+	return repo.dbHandler.Update(UserCollection, Query{"uid": user.UID}, change, &updatedUser)
+}
+
 func (repo *DbUserRepo) ConfirmEmail(user domain.User) error {
 	update := Query{
 		"emailConfirmationCode": "",                      // Reset Code

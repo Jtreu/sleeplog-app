@@ -15,5 +15,5 @@ func (handler *WebHandler) GetIndex(res http.ResponseWriter, req *http.Request) 
 }
 
 func (handler *WebHandler) GetCertBotKey(res http.ResponseWriter, req *http.Request) {
-	res.Write([]byte("osvGIOUEm8cHMDa30G3Hpbhg_oI7ncvypeVEtdTarGs.DH62LGmvcUoyR7ZuXidRyIjLGdZEdDnaVwK-q3pFy7s"))
+	res.Write([]byte("certbot_key"))
 }

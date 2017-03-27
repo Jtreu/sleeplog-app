@@ -11,8 +11,8 @@ import (
 	"unicode"
 	"unicode/utf8"
 
-	"github.com/twinj/uuid"
 	"github.com/jtreu/sleeplog-app/api-server/domain"
+	"github.com/twinj/uuid"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -21,7 +21,6 @@ type UserInteractor struct {
 }
 
 var vanityUsernames map[string]bool
-var defaultUserDescriptions []string
 
 func NewUserInteractor() *UserInteractor {
 	// Retrieve vanity names
@@ -33,17 +32,6 @@ func NewUserInteractor() *UserInteractor {
 	err = json.Unmarshal(vanityUsernamesBytes, &vanityUsernames)
 	if err != nil {
 		log.Fatal(fmt.Errorf("Error parsing vanity usernames: %v", err.Error()))
-	}
-
-	// Retrieve default descriptions
-	defaultDescriptionsBytes, err := ioutil.ReadFile("usecase/default_user_descriptions.json")
-	if err != nil {
-		log.Fatal(fmt.Errorf("Error loading default_user_descriptions: %v", err.Error()))
-	}
-
-	err = json.Unmarshal(defaultDescriptionsBytes, &defaultUserDescriptions)
-	if err != nil {
-		log.Fatal(fmt.Errorf("Error parsing default user descriptions: %v", err.Error()))
 	}
 
 	return &UserInteractor{}
@@ -125,13 +113,10 @@ func (interactor *UserInteractor) Create(email, username, fullname, password str
 	hashedPassword, _ := hashPassword(password)
 	emailConfirmationCord := generateEmailConfirmationCode()
 
-	description := generateDefaultUserDescription(fullname)
-
 	user := domain.User{
 		Email:                 strings.TrimSpace(email),
 		Username:              strings.TrimSpace(username),
 		Alias:                 strings.TrimSpace(fullname),
-		Description:           description,
 		Media:                 media,
 		HashedPassword:        hashedPassword,
 		EmailConfirmationCode: emailConfirmationCord,
@@ -248,6 +233,18 @@ func (interactor *UserInteractor) UpdatePassword(oldPassword string, newPassword
 	return interactor.UserRepository.UpdatePassword(user)
 }
 
+func (interactor *UserInteractor) UpdateEntries(entries domain.UserEntries, user domain.User) error {
+	if user.Entries == nil {
+		user.Entries = make(domain.UserEntries)
+	}
+
+	for date := range entries {
+		user.Entries[date] = entries[date]
+	}
+
+	return interactor.UserRepository.UpdateEntries(user)
+}
+
 func (interactor *UserInteractor) ConfirmEmail(code string) error {
 	if !isValidEmailConfirmationCode(code) {
 		return fmt.Errorf("Invalid confirmation code")
@@ -312,12 +309,6 @@ func (interactor *UserInteractor) UpdatePasswordWithCode(code, password string) 
 	user.HashedPassword = hashedPassword
 
 	return interactor.UserRepository.UpdatePassword(user)
-}
-
-func generateDefaultUserDescription(name string) string {
-	descritpion := defaultUserDescriptions[rand.Intn(len(defaultUserDescriptions))]
-	descritpion = strings.Replace(descritpion, "{{ name }}", name, -1)
-	return descritpion
 }
 
 var defaultUserIconColors = []string{"FF6344", "3D4E5E", "22C19A"}
