@@ -4,7 +4,8 @@
 
 ## Services
 
-* Mailgun - Email Service
-* MLab - MongoDB Provider
-* Google Domains - sleeplog-app domain
-* Heroku - API server
+* Firebase Hosting - www.sleeplog-app.com host
+* Google Domains - Domain provider
+* Mailgun - Email service
+* MLab - MongoDB provider
+* Heroku - API server host
