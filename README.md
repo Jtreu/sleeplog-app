@@ -54,3 +54,5 @@
   - go implementation of json web tokens
 * [negroni](github.com/urfave/negroni)
   - go http middleware utility
+
+[![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
