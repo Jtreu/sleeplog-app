@@ -2,10 +2,26 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
+import store from './store'
+import router from './router'
+import { sync } from 'vuex-router-sync'
 
-/* eslint-disable*/
-new Vue({
-  el: '#app',
-  template: '<App/>',
-  components: { App }
+import Vuelidate from 'vuelidate'
+
+// sync the router with the vuex store.
+// this registers `store.state.route`
+sync(store, router)
+
+Vue.use(Vuelidate)
+
+/* eslint-disable no-new */
+const app = new Vue({
+  router,
+  store,
+  ...App
 })
+
+// actually mount to DOM
+app.$mount('#app')
+
+// export { app, router, store }

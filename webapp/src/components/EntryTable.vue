@@ -6,50 +6,59 @@
       :default-activites="defaultActivites"
       v-on:add="addActivity()"
       v-on:remove="removeActivity($event)"
+      v-on:update="updateProfileEntries()"
       v-on:close="closeDialog()"></sl-entry-dialog>
-    <div class="table-container">
-      <table class="description-table">
-        <tr>
-          <th>DATE:</th>
-          <th>Day of the Week</th>
-          <th>Type of Day
-              <p id="day_type">Work, School, Off, Vacation (Vac)</p>
-          </th>
-        </tr>
-        <tr v-for="date in dates">
-          <td>{{ date.toLocaleDateString() }}</td>
-          <td>{{ date.toLocaleDateString('eng', {weekday: 'long'}) }}</td>
-          <td>
-            <ui-select v-on:input="setDayType(date, $event)"
-               :placeholder="'Select Day'"
-               :options="dayOptions"
-               :value="selectedDayOptions[date] || 'Off'"></ui-select>
-          </td>
-        </tr>
-      </table>
-      <table class="times-table">
-        <tr>
-          <th class="verticalTableHeader" v-for="time in times">{{time}}</th>
-        </tr>
-        <tr v-for="date in dates">
-          <td v-for="time in times"
-            :class="{ 'shaded': doesEntryContainSleep(date, time) }"
-            v-on:click="openDialog(date, time)">{{displayInBox(date, time).toString()}}</td>
-        </tr>
-      </table>
+    <div class="outer-table-container">
+      <div class="inner-table-container">
+        <table>
+          <tr>
+            <th class="fixed-column">Date</th>
+            <th class="fixed-column">Day of the Week</th>
+            <th class="fixed-column">Type of Day
+                <p id="day_type">Work, School, Off, Vacation (Vac)</p>
+            </th class="fixed-column">
+            <th v-for="time in times">{{time}}</th>
+          </tr>
+          <tr v-for="date in dates">
+            <td class="fixed-column">{{ (new Date(date)).toLocaleDateString() }}</td>
+            <td class="fixed-column">{{ (new Date(date)).toLocaleDateString('eng', {weekday: 'long'}) }}</td>
+            <td class="fixed-column">
+              <ui-select v-on:input="setDayType(date, $event)"
+                 :placeholder="'Select Day'"
+                 :options="dayOptions"
+                 :value="entries[date].dayType || 'Off'"></ui-select>
+            </td>
+            <td v-for="time in times"
+              :class="{ 'shaded': doesEntryContainSleep(date, time) }"
+              v-on:click="openDialog(date, time)">{{displayInBox(date, time).toString()}}</td>
+          </tr>
+        </table>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import EntryDialog from './EntryDialog'
 import UiSelect from './KeenUI/UiSelect'
 
 export default {
-  name: 'app',
+  name: 'sl-entry-table',
   components: {
     'sl-entry-dialog': EntryDialog,
     'ui-select': UiSelect // <ui-button>
+  },
+  props: {
+    userEntries: {
+      type: Object
+    },
+    disableEdit: {
+      type: Boolean,
+      default () {
+        return false
+      }
+    }
   },
   data () {
     return {
@@ -59,8 +68,7 @@ export default {
       dialogIsOpen: false,
       activeEntry: { date: '', time: '', activities: [] },
       defaultActivites: ['Sleep', 'Caffeine', 'Medicine', 'Alcohol', 'Exercise'],
-      dayOptions: ['Work', 'School', 'Off', 'Vacation'],
-      selectedDayOptions: {}
+      dayOptions: ['Work', 'School', 'Off', 'Vacation']
     }
   },
   mounted () {
@@ -70,13 +78,30 @@ export default {
     this.generateDates()
     // Initialize entries object
     this.initEntries()
+
+    if (this.userEntries) {
+      this.entries = this.userEntries
+      return
+    }
+
+    this.entries = Object.assign(this.entries, this.profileEntries)
+  },
+  watch: {
+    userEntries () {
+      this.entries = this.userEntries
+    }
+  },
+  computed: {
+    ...mapState({
+      profileEntries: state => state.profile.entries
+    })
   },
   methods: {
     doesEntryContainSleep (date, time) {
-      if (!this.entries || !this.entries[date][time] || this.entries[date][time].activities.length < 1) {
+      if (!this.entries || !this.entries[date].times[time] || this.entries[date].times[time].activities.length < 1) {
         return false
       }
-      let activities = this.entries[date][time].activities
+      let activities = this.entries[date].times[time].activities
       activities = Object.keys(activities).map(key => activities[key])
       for (let i = 0; i < activities.length; i++) {
         if (activities[i].name === 'Sleep' && activities[i].isDone) {
@@ -86,7 +111,7 @@ export default {
       return false
     },
     displayInBox (date, time) {
-      let activities = this.entries[date][time].activities
+      let activities = this.entries[date].times[time].activities
       activities = Object.keys(activities).map(key => activities[key])
       let displayThis = []
       for (let i = 0; i < activities.length; i++) {
@@ -113,9 +138,11 @@ export default {
       var entries = {}
       for (var i = 0; i < this.dates.length; i++) {
         entries[`${this.dates[i]}`] = {}
+        entries[`${this.dates[i]}`].dayType = ''
+        entries[`${this.dates[i]}`].times = {}
         // this.selectedDayOptions[this.dates[i]] = ''
         for (var j = 0; j < this.times.length; j++) {
-          entries[`${this.dates[i]}`][`${this.times[j]}`] = {
+          entries[`${this.dates[i]}`].times[`${this.times[j]}`] = {
             date: this.dates[i],
             time: this.times[j],
             activities: []
@@ -137,41 +164,57 @@ export default {
     },
     generateDates () {
       var dates = [new Date()]
-      for (var i = 1; i < 10; i++) {
+      for (var i = 1; i < 5; i++) {
         // get the next day after the previous
         var thisDate = new Date(dates[i - 1].getTime() - (24 * 60 * 60 * 1000))
+        // thisDate = thisDate.toDateString()
         dates.push(thisDate)
       }
-      for (var j = 0; j < dates.length; j++) {
-        dates[j] = dates[j]
-      }
+      dates = dates.map(date => (new Date(date)).toDateString())
       this.dates = dates
     },
     openDialog (date, time) {
-      this.activeEntry = this.entries[date][time]
+      if (this.disableEdit) {
+        return
+      }
+      this.activeEntry = this.entries[date].times[time]
       this.dialogIsOpen = true
     },
     closeDialog () {
+      if (this.disableEdit) {
+        return
+      }
       this.dialogIsOpen = false
     },
     addActivity () {
+      if (this.disableEdit) {
+        return
+      }
+
       if (!this.activeEntry.date || !this.activeEntry.time) {
         return
       }
       // Don't add more activities than available
-      if (this.entries[this.activeEntry.date][this.activeEntry.time].activities.length >= this.defaultActivites.length) {
+      if (this.entries[this.activeEntry.date].times[this.activeEntry.time].activities.length >= this.defaultActivites.length) {
         return
       }
-      let availableName = this.getAvailableActivityName(this.entries[this.activeEntry.date][this.activeEntry.time].activities)
-      this.entries[this.activeEntry.date][this.activeEntry.time].activities.push({
+      let availableName = this.getAvailableActivityName(this.entries[this.activeEntry.date].times[this.activeEntry.time].activities)
+      this.entries[this.activeEntry.date].times[this.activeEntry.time].activities.push({
         name: availableName,
         isDone: false
       })
+
+      this.updateProfileEntries()
     },
     removeActivity (index) {
-      if (index > -1) {
-        this.entries[this.activeEntry.date][this.activeEntry.time].activities.splice(index, 1)
+      if (this.disableEdit) {
+        return
       }
+      if (index > -1) {
+        this.entries[this.activeEntry.date].times[this.activeEntry.time].activities.splice(index, 1)
+      }
+
+      this.updateProfileEntries()
     },
     getAvailableActivityName (selected) {
       let options = this.defaultActivites
@@ -181,48 +224,66 @@ export default {
       return options[0]
     },
     setDayType (date, selectedName) {
-      this.$set(this.selectedDayOptions, date, selectedName)
+      if (this.disableEdit) {
+        return
+      }
+      this.entries[date].dayType = selectedName
+      this.updateProfileEntries()
+    },
+    updateProfileEntries () {
+      if (this.disableEdit) {
+        return
+      }
+      this.$store.dispatch('updateEntries', { entries: this.entries })
+        .then(() => {
+          // console.log('Successfully updated profile')
+        })
+        .catch(() => {
+          // console.log('Failed to update profile entries: ', err)
+        })
     }
   }
 }
 </script>
 
-<style>
-.table-container {
-  width: 50px;
+<style lang="scss" scoped>
+
+
+.outer-table-container {
+  position: relative;
+}
+
+.inner-table-container {
+  overflow-x: scroll;
+  overflow-y: visible;
+  width: 100%;
+}
+
+.fixed-column {
+  position: relative;
+  width: 100px;
+}
+
+.shaded {
+  background-color: grey;
 }
 
 table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
 }
+
 td, th {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
+  vertical-align: top;
+  border-top: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  padding: 10px;
+  width: 100px;
 }
-.verticalTableHeader {
-    text-align: center;
-    white-space: nowrap;
-    transform-origin: 50% 50%;
-    -webkit-transform: rotate(90deg);
-    -moz-transform: rotate(90deg);
-    -ms-transform: rotate(90deg);
-    -o-transform: rotate(90deg);
-    transform: rotate(90deg);
-}
-.verticalTableHeader:before {
-    content: '';
-    padding-top:80%;
-    display:inline-block;
-    vertical-align:middle;
-}
+
 #day_type {
 	font-size: 0.95em;
 	font-weight: 500;
-}
-.shaded {
-  background-color: grey;
 }
 </style>

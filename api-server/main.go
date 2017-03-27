@@ -142,8 +142,9 @@ func main() {
 	router.Post("/users/:username/email", w.EnsureAuth(w.UpdateUserEmail))
 	router.Post("/users/:username/description", w.EnsureAuth(w.UpdateUserDescription))
 	router.Post("/users/:username/password", w.EnsureAuth(w.UpdateUserPassword))
+	router.Post("/users/:username/entries", w.EnsureAuth(w.UpdateUserEntries))
 
-	router.Get("/.well-known/acme-challenge/osvGIOUEm8cHMDa30G3Hpbhg_oI7ncvypeVEtdTarGs", http.HandlerFunc(w.GetCertBotKey)) // Certbot - Certificate verification
+	// router.Get("/.well-known/acme-challenge/osvGIOUEm8cHMDa30G3Hpbhg_oI7ncvypeVEtdTarGs", http.HandlerFunc(w.GetCertBotKey)) // Certbot - Certificate verification
 
 	n.UseHandler(router)
 	fmt.Printf("Running on port: %v\n", port)

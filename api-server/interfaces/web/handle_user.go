@@ -91,6 +91,15 @@ type UpdateUserPasswordResponseV0 struct {
 	Success bool   `json:"success,omitempty"`
 }
 
+type UpdateUserEntriesRequestV0 struct {
+	Entries domain.UserEntries `json:"entries"`
+}
+
+type UpdateUserEntriesResponseV0 struct {
+	Message string `json:"message,omitempty"`
+	Success bool   `json:"success,omitempty"`
+}
+
 type VerifyUserGamePlayAccessResponseV0 struct {
 	PlayAccessStatus string `json:"playAccessStatus,omitempty"`
 	Message          string `json:"message,omitempty"`
@@ -136,6 +145,7 @@ type UserInteractor interface {
 	UpdateEmail(email string, user domain.User) (domain.User, error)
 	UpdateDescription(description string, user domain.User) (domain.User, error)
 	UpdatePassword(oldPassword string, newPassword string, user domain.User) error
+	UpdateEntries(entries domain.UserEntries, user domain.User) error
 
 	ConfirmEmail(code string) error
 	ResetPassword(email string) error
@@ -393,6 +403,44 @@ func (handler *WebHandler) UpdateUserPassword(res http.ResponseWriter, req *http
 
 	handler.util.renderer.Render(res, req, http.StatusOK, UpdateUserPasswordResponseV0{
 		Message: "Password updated",
+		Success: true,
+	})
+}
+
+func (handler *WebHandler) UpdateUserEntries(res http.ResponseWriter, req *http.Request) {
+	userUID := req.Context().Value(UserUIDContextKey)
+	if userUID == nil {
+		handler.util.renderer.Error(res, req, http.StatusUnauthorized, "Requires authentication.")
+		return
+	}
+
+	username := bone.GetValue(req, "username")
+	user, err := handler.UserInteractor.GetByUsername(username)
+	if err != nil {
+		handler.util.renderer.Error(res, req, http.StatusBadRequest, err.Error())
+		return
+	}
+
+	if user.UID != userUID {
+		handler.util.renderer.Error(res, req, http.StatusUnauthorized, fmt.Sprintf("Invalid identity"))
+		return
+	}
+
+	var body UpdateUserEntriesRequestV0
+	err = handler.util.DecodeRequestBody(res, req, &body)
+	if err != nil {
+		handler.util.renderer.Error(res, req, http.StatusBadRequest, fmt.Sprintf("Request body parse error: %v", err.Error()))
+		return
+	}
+
+	err = handler.UserInteractor.UpdateEntries(body.Entries, user)
+	if err != nil {
+		handler.util.renderer.Error(res, req, http.StatusUnprocessableEntity, err.Error())
+		return
+	}
+
+	handler.util.renderer.Render(res, req, http.StatusCreated, UpdateUserEntriesResponseV0{
+		Message: "Entries updated",
 		Success: true,
 	})
 }

@@ -1,0 +1,17 @@
+{
+  "manifest_version": 1,
+  "version": "0.1",
+
+  "name": "Sleeplog App",
+  "short_name": "Sleeplog",
+  "description": "Log daily acitivty & sleep schedule for your neurologist",
+  "icons": [{
+    "src": "/static/logo.png",
+    "sizes": "120x120",
+    "type": "image/png"
+  }],
+  "start_url": "/",
+  "background_color": "#FFFFFF",
+  "display": "standalone",
+  "theme_color": "#FFD60A"
+}

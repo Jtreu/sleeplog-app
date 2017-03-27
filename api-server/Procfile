@@ -1,1 +1,1 @@
-web: sleeplog-app
+web: api-server

@@ -14,6 +14,7 @@ type UserRepository interface {
 	UpdateEmail(user User) (User, error)
 	UpdateDescription(user User) (User, error)
 	UpdatePassword(user User) error
+	UpdateEntries(user User) error
 
 	ConfirmEmail(user User) error
 	ResetPassword(user User) error
@@ -32,6 +33,8 @@ type User struct {
 	Username string `json:"username" bson:"username"`
 	Alias    string `json:"alias" bson:"alias"`
 
+	Entries UserEntries `json:"entries" bson:"entries"`
+
 	Description string    `json:"description" bson:"description"`
 	Media       UserMedia `json:"media" bson:"media"`
 
@@ -48,6 +51,18 @@ type User struct {
 
 // Users is a list of User
 type Users []User
+
+type UserEntries map[string]struct {
+	DayType string `json:"dayType" bson:"dayType"`
+	Times   map[string]struct {
+		Date       string `json:"date" bson:"date"`
+		Time       string `json:"time" bson:"time"`
+		Activities []struct {
+			Name   string `json:"name" bson:"name"`
+			IsDone bool   `json:"isDone" bson:"isDone"`
+		} `json:"activities" bson:"activities"`
+	} `json:"times" bson:"times"`
+}
 
 type UserMedia struct {
 	Icon struct {

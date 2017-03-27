@@ -1,6 +1,6 @@
-# api.enoplay.com
+# api.sleeplog-app.com
 
-> API for managing games, users and sessions for Enoplay.
+> API for managing games, users and sessions for sleeplog-app.
 
 ## Build Setup
 

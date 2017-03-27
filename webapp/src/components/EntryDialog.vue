@@ -15,7 +15,7 @@
                 :options="activityOptions[index]"></ui-select>
             </div>
             <div class="input-container">
-              <ui-checkbox
+              <ui-checkbox v-on:input="updateEntries()"
                 v-model="activity.isDone"></ui-checkbox>
             </div>
             <div class="remove-btn-container">
@@ -120,6 +120,9 @@ export default {
       if (event.target.id === 'modal') {
         this.$emit('close')
       }
+    },
+    updateEntries () {
+      this.$emit('update')
     },
     addActivity () {
       this.$emit('add')
