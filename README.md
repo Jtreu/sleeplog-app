@@ -36,6 +36,7 @@
   - Neurologist role asks patients for permissions to view entries
   - Patient role receives permission requests to view entries
   - Add a indroductory sequence for first-time users 
+  - Change your profile picture using the imageSourceManipulator.js util 
 * Add service worker for offline support
 
 ## Technologies
