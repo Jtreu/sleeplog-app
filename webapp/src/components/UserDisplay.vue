@@ -61,6 +61,7 @@ div {
   vertical-align: top;
   width: 400px;
   height:100%;
+  font-size: 1.10em;
 }
 ul li {
   margin: 20px;
