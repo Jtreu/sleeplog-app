@@ -35,6 +35,7 @@
 * Add user roles
   - Neurologist role asks patients for permissions to view entries
   - Patient role receives permission requests to view entries
+  - Add a indroductory sequence for first-time users 
 * Add service worker for offline support
 
 ## Technologies
