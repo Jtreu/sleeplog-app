@@ -53,6 +53,8 @@ div {
 }
 .img_container {
   display:inline-block;
+  // Box shadow won't work
+  box-shadow: 10px 20px 20px #888888;
   // border: 1px solid black;
 }
 .info_container {

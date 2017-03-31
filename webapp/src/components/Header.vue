@@ -1,5 +1,6 @@
 <template lang="html">
   <div class="header">
+    <link href="https://fonts.googleapis.com/css?family=Oxygen" rel="stylesheet">
     <router-link :to="{ name: 'home' }">
       <div class="logo-container" >
         <img src="/static/logo.png" class="logo"><span>{{ label.APP_NAME }}</span>
@@ -12,10 +13,15 @@
         :placeholder="label.FIND_USERS">
       <input id="searchBtn" type="submit" :value="label.SEARCH">
     </form>
+    <nav class="header-navs">
+      <a v-show="isLoggedIn" v-on:click="logOut()" href="/">LOGOUT</a>
+    </nav>
   </div>
 </template>
 
 <script>
+import { mapState, mapGetters } from 'vuex'
+
 export default {
   name: 'sl-header',
   data () {
@@ -38,6 +44,14 @@ export default {
       this.search(query)
     }
   },
+  computed: {
+    ...mapState({
+      isLoggedIn: state => state.profile.isLoggedIn
+    }),
+    ...mapGetters([
+      'profile'
+    ])
+  },
   methods: {
     search (query) {
       return this.$store.dispatch('searchUsers', query)
@@ -56,6 +70,10 @@ export default {
     },
     clearQuery () {
       this.form.query = ''
+    },
+    logOut () {
+      /* Add functionality to log user out */
+      console.log('user clicked logout')
     }
   }
 }
@@ -73,18 +91,36 @@ $input-height: 40px;
 }
 
 .searchForm {
+  display: inline-block;
   font-size: 0;
+  width: 70%;
 }
 
 .logo-container {
   margin-left: 20px;
-  float: left;
+  float:left;
   font-weight: bold;
 }
 .logo {
   height: $input-height;
 }
-
+.header-navs {
+  display: inline-block;
+  float:right;
+  margin-top: 20px;
+  font-size: 16px;
+  font-family: 'Oxygen', sans-serif;
+}
+.header-navs a {
+  color: #000000;
+  border: 1px solid rgb(33, 207, 196);
+  padding: 2% 2% 2% 2%;
+  text-decoration: none;
+  margin-right: 12px;
+  font-weight: bold;
+  border-width: 5px;
+  border-style: groove;
+}
 #searchBar {
   width: 50%;
   border: 0;
