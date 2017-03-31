@@ -39,6 +39,7 @@
   - Make the times entries responsive & scrollable 
   - Change your profile picture using the imageSourceManipulator.js util 
 * Add service worker for offline support
+* Add logout button functionality
 
 ## Technologies
 
