@@ -74,7 +74,6 @@ export default {
     logOut () {
       /* Add functionality to log user out */
       this.$store.dispatch('logout')
-      console.log('user logged out')
       this.$store.isLoggedIn = false
     }
   }
