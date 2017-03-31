@@ -73,7 +73,9 @@ export default {
     },
     logOut () {
       /* Add functionality to log user out */
-      console.log('user clicked logout')
+      this.$store.dispatch('logout')
+      console.log('user logged out')
+      this.$store.isLoggedIn = false
     }
   }
 }
@@ -107,19 +109,23 @@ $input-height: 40px;
 .header-navs {
   display: inline-block;
   float:right;
-  margin-top: 20px;
+  margin-top: 18px;
   font-size: 16px;
   font-family: 'Oxygen', sans-serif;
 }
 .header-navs a {
-  color: #000000;
-  border: 1px solid rgb(33, 207, 196);
-  padding: 2% 2% 2% 2%;
-  text-decoration: none;
-  margin-right: 12px;
+  width: 100%;
+  background-color: #998DA0;
+  color: #fff;
+  padding: 14px 20px;
+  font-size: 13px;
   font-weight: bold;
-  border-width: 5px;
-  border-style: groove;
+  margin: 8px 0;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  text-transform: uppercase;
+  text-decoration: none;
 }
 #searchBar {
   width: 50%;
