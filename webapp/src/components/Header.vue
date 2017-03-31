@@ -13,9 +13,9 @@
         :placeholder="label.FIND_USERS">
       <input id="searchBtn" type="submit" :value="label.SEARCH">
     </form>
-    <nav class="header-navs">
-      <a v-show="isLoggedIn" v-on:click="logOut()" href="/">LOGOUT</a>
-    </nav>
+    <div class="header-navs">
+      <button v-show="isLoggedIn" v-on:click="logOut()">LOGOUT</button>
+    </div>
   </div>
 </template>
 
@@ -108,11 +108,10 @@ $input-height: 40px;
 .header-navs {
   display: inline-block;
   float:right;
-  margin-top: 18px;
   font-size: 16px;
   font-family: 'Oxygen', sans-serif;
 }
-.header-navs a {
+.header-navs button {
   width: 100%;
   background-color: #998DA0;
   color: #fff;
