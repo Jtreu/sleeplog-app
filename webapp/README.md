@@ -27,4 +27,28 @@ npm run e2e
 npm test
 ```
 
+
+## Deployment
+
+``` bash
+# Navigate to your project directory
+cd path/to/my/project
+
+# Build the application source code
+npm run build
+
+# Deploy to firebase (requirements: install firebase cli & login to firebase cli)
+firebase deploy
+```
+
+## Firebase CLI (Command Line Interface)
+
+``` bash
+# To install firebase cli
+npm install -g firebase-tools
+
+# To login to firebase cli
+firebase login
+```
+
 For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
