@@ -15,6 +15,7 @@
     </form>
     <div class="header-navs">
       <button v-show="isLoggedIn" v-on:click="logOut()">LOGOUT</button>
+      <button v-show="!isLoggedIn" v-on:click="signIn()">SIGN IN</button>
     </div>
   </div>
 </template>
@@ -74,6 +75,11 @@ export default {
     logOut () {
       /* Add functionality to log user out */
       this.$store.dispatch('logout')
+      this.$store.isLoggedIn = false
+    },
+    signIn () {
+      /* Add functionality to log user out */
+      this.$router.push({ name: 'home' })
       this.$store.isLoggedIn = false
     }
   }
