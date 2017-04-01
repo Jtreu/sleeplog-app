@@ -15,7 +15,7 @@
     </form>
     <div class="header-navs">
       <button v-show="isLoggedIn" v-on:click="logOut()">LOGOUT</button>
-      <button v-show="!isLoggedIn" v-on:click="signIn()">SIGN IN</button>
+      <button v-show="!isLoggedIn && this.$route.path !== '/'" v-on:click="signIn()">SIGN IN</button>
     </div>
   </div>
 </template>
