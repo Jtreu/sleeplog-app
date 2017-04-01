@@ -39,7 +39,6 @@
   - Make the times entries responsive & scrollable 
   - Change your profile picture using the imageSourceManipulator.js util 
 * Add service worker for offline support
-* Make sure "Sign Up" button does not display on the home page
 
 ## Technologies
 
