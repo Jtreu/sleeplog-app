@@ -32,7 +32,7 @@ npm test
 
 ``` bash
 # Navigate to your project directory
-cd path/to/my/project
+cd path/to/my/project/webapp
 
 # Build the application source code
 npm run build
