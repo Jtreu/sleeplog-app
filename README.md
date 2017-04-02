@@ -40,7 +40,6 @@
 * Make the times entries responsive & scrollable
 * Change the font when the user enters something into the table 
 * Change your profile picture using the imageSourceManipulator.js util 
-- Give the user the option to print their logs
 
 ## Technologies
 
