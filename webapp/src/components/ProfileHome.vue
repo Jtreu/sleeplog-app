@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="profile-home">
     <button class="button_print">Print</button>
-    <div v-html="contentString"></div>
+    <div v-on:click="print()" v-html="contentString"></div>
   </div>
 </template>
 
@@ -18,6 +18,11 @@ export default {
   },
   data () {
     return { }
+  },
+  methods: {
+    print () {
+      window.print()
+    }
   }
 }
 </script>
