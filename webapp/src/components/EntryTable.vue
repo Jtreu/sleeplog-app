@@ -281,7 +281,6 @@ td, th {
   padding: 10px;
   width: 100px;
 }
-
 #day_type {
 	font-size: 0.95em;
 	font-weight: 500;
