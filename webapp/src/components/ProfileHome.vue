@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="profile-home">
-    <button class="button_print">Print</button>
-    <div v-on:click="print()" v-html="contentString"></div>
+    <button v-on:click="print()" class="button_print">Print</button>
+    <div v-html="contentString"></div>
   </div>
 </template>
 
