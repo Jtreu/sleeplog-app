@@ -36,6 +36,12 @@
   - Neurologist role asks patients for permissions to view entries
   - Patient role receives permission requests to view entries
 * Add service worker for offline support
+* Add a indroductory sequence for first-time users
+* Make the times entries responsive & scrollable
+* Change the font when the user enters something into the table
+* Create a homepage with information about the application
+* Make the select boxes disappear and be replaced with static information when a user is viewing a table that is not theirs.
+* Change your profile picture using the imageSourceManipulator.js util 
 
 ## Technologies
 

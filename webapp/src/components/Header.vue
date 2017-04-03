@@ -1,5 +1,6 @@
 <template lang="html">
   <div class="header">
+    <link href="https://fonts.googleapis.com/css?family=Oxygen" rel="stylesheet">
     <router-link :to="{ name: 'home' }">
       <div class="logo-container" >
         <img src="/static/logo.png" class="logo"><span>{{ label.APP_NAME }}</span>
@@ -12,10 +13,16 @@
         :placeholder="label.FIND_USERS">
       <input id="searchBtn" type="submit" :value="label.SEARCH">
     </form>
+    <div class="header-navs">
+      <button v-show="isLoggedIn" v-on:click="logOut()">LOGOUT</button>
+      <button v-show="!isLoggedIn && this.$route.path !== '/'" v-on:click="signIn()">SIGN IN</button>
+    </div>
   </div>
 </template>
 
 <script>
+import { mapState, mapGetters } from 'vuex'
+
 export default {
   name: 'sl-header',
   data () {
@@ -38,6 +45,14 @@ export default {
       this.search(query)
     }
   },
+  computed: {
+    ...mapState({
+      isLoggedIn: state => state.profile.isLoggedIn
+    }),
+    ...mapGetters([
+      'profile'
+    ])
+  },
   methods: {
     search (query) {
       return this.$store.dispatch('searchUsers', query)
@@ -56,6 +71,16 @@ export default {
     },
     clearQuery () {
       this.form.query = ''
+    },
+    logOut () {
+      /* Add functionality to log user out */
+      this.$store.dispatch('logout')
+      this.$store.isLoggedIn = false
+    },
+    signIn () {
+      /* Add functionality to log user out */
+      this.$router.push({ name: 'home' })
+      this.$store.isLoggedIn = false
     }
   }
 }
@@ -73,18 +98,39 @@ $input-height: 40px;
 }
 
 .searchForm {
+  display: inline-block;
   font-size: 0;
+  width: 70%;
 }
 
 .logo-container {
   margin-left: 20px;
-  float: left;
+  float:left;
   font-weight: bold;
 }
 .logo {
   height: $input-height;
 }
-
+.header-navs {
+  display: inline-block;
+  float:right;
+  font-size: 16px;
+  font-family: 'Oxygen', sans-serif;
+}
+.header-navs button {
+  width: 100%;
+  background-color: #998DA0;
+  color: #fff;
+  padding: 14px 20px;
+  font-size: 13px;
+  font-weight: bold;
+  margin: 8px 0;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  text-transform: uppercase;
+  text-decoration: none;
+}
 #searchBar {
   width: 50%;
   border: 0;
