@@ -38,9 +38,9 @@
 * Add service worker for offline support
 * Add a indroductory sequence for first-time users
 * Make the times entries responsive & scrollable
-* Change the font when the user enters something into the table 
+* Change the font when the user enters something into the table
+* Create a homepage with information about the application
 * Change your profile picture using the imageSourceManipulator.js util 
-- Give the user the option to print their logs
 
 ## Technologies
 

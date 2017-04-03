@@ -1,6 +1,6 @@
 # api.sleeplog-app.com
 
-> API for managing games, users and sessions for sleeplog-app.
+> API for managing users and sessions for sleeplog-app.
 
 ## Build Setup
 
