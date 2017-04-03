@@ -1,3 +1,4 @@
+<!-- Hi -->
 <template>
   <div class="entry-table">
     <sl-entry-dialog class="dialog"
