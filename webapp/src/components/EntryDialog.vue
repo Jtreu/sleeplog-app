@@ -59,8 +59,7 @@ export default {
           activities: [{
             name: 'Sleep',
             isDone: false
-          }],
-          typeday: []
+          }]
         }
       }
     },

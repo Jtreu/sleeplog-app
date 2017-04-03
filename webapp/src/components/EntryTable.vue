@@ -68,7 +68,8 @@ export default {
       dialogIsOpen: false,
       activeEntry: { date: '', time: '', activities: [] },
       defaultActivites: ['Sleep', 'Caffeine', 'Medicine', 'Alcohol', 'Exercise'],
-      dayOptions: ['Work', 'School', 'Off', 'Vacation']
+      dayOptions: ['Work', 'School', 'Off', 'Vacation'],
+      dayType: ''
     }
   },
   mounted () {
@@ -225,6 +226,7 @@ export default {
     },
     setDayType (date, selectedName) {
       if (this.disableEdit) {
+        // Make the text static here instead of having a return.
         return
       }
       this.entries[date].dayType = selectedName
