@@ -81,11 +81,13 @@ export default {
     // Initialize entries object
     this.initEntries()
 
+    // If not your entries
     if (this.userEntries) {
       this.entries = this.userEntries
       return
     }
 
+    // If your entries
     this.entries = Object.assign(this.entries, this.profileEntries)
   },
   watch: {
@@ -148,7 +150,6 @@ export default {
             date: this.dates[i],
             time: this.times[j],
             activities: []
-            // entries[date].dayType = ''
           }
         }
       }
