@@ -1,3 +1,4 @@
+<!-- Hi -->
 <template>
   <div class="entry-table">
     <sl-entry-dialog class="dialog"
@@ -249,8 +250,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
-
 .outer-table-container {
   position: relative;
 }
@@ -274,12 +273,14 @@ table {
   font-family: arial, sans-serif;
   border-collapse: collapse;
   width: 100%;
+  background-color: rgb(207, 231, 209);
+  border: 2px solid #ccc;
 }
 
 td, th {
   vertical-align: top;
-  border-top: 1px solid #ccc;
-  border-right: 1px solid #ccc;
+  border-top: 2px solid #ccc;
+  border-right: 2px solid #ccc;
   padding: 10px;
   width: 100px;
 }
