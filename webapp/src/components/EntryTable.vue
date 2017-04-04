@@ -148,6 +148,7 @@ export default {
             date: this.dates[i],
             time: this.times[j],
             activities: []
+            // entries[date].dayType = ''
           }
         }
       }
