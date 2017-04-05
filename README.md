@@ -41,7 +41,8 @@
 * Change the font when the user enters something into the table
 * Create a homepage with information about the application
 * Make the select boxes disappear and be replaced with static information when a user is viewing a table that is not theirs.
-* Change your profile picture using the imageSourceManipulator.js util 
+* Change your profile picture using the imageSourceManipulator.js util
+-  Have top left header element link to homepage
 
 ## Technologies
 
