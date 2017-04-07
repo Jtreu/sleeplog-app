@@ -45,6 +45,7 @@
 * Change your profile picture using the imageSourceManipulator.js util
 * Have top left header element link to homepage
 * Remove dropdown boxes from pages after searching for users
+* Add customizable profile functionality
 
 ## Technologies
 
