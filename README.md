@@ -46,6 +46,8 @@
 * Have top left header element link to homepage
 * Remove dropdown boxes from pages after searching for users
 * Add customizable profile functionality
+* Correctly display occupation
+* Make search funciton work for partial names, and display multiple users if they have the same first/last name
 
 ## Technologies
 
