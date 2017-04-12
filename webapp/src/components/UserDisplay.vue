@@ -8,7 +8,7 @@
     <div class="info_container">
       <ul style="list-style: none;">
         <li><strong>Name: </strong>{{this.user.name}}</li>
-        <li><strong>Occupation: </strong>{{this.user.name}}</li>
+        <li><strong>Occupation: </strong>{{this.user.occupation}}</li>
       </ul>
     </div>
   </div>
@@ -25,6 +25,7 @@ export default {
         return {
           imgPath: '',
           name: '',
+          occupation: '',
           usertype: ''
         }
       }

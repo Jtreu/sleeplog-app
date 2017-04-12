@@ -245,10 +245,10 @@ export default {
       }
       this.$store.dispatch('updateEntries', { entries: this.entries })
         .then(() => {
-          // console.log('Successfully updated profile')
+          console.log('Successfully updated profile')
         })
         .catch(() => {
-          // console.log('Failed to update profile entries: ', err)
+          console.log('Failed to update profile entries: ', err)
         })
     }
   }
