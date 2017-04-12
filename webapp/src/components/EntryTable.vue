@@ -294,4 +294,8 @@ td, th {
 	font-size: 0.95em;
 	font-weight: 500;
 }
+#vortex {
+  font-size: 1em;
+  font-weight: 400;
+}
 </style>
