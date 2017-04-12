@@ -115,4 +115,9 @@ export default {
   margin-bottom: 20px;
   color: #cc0000;
 }
+
+.extraStyles {
+  margin-bottom: 15px;
+  color: red;
+}
 </style>
