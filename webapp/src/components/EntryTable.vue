@@ -81,7 +81,7 @@ export default {
     // Initialize entries object
     this.initEntries()
 
-    if(isLoggedIn) {
+    if (isLoggedIn) {
       this.updateProfileEntries();
     }
 
@@ -248,7 +248,7 @@ export default {
           console.log('Successfully updated profile')
         })
         .catch(() => {
-          console.log('Failed to update profile entries: ', err)
+          console.log('Failed to update profile entries: ', this.err)
         })
     }
   }
