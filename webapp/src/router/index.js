@@ -4,6 +4,7 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 import Home from '../views/Home'
+import Intro from '../views/Intro'
 
 import Search from '../views/Search'
 import Profile from '../views/Profile'
