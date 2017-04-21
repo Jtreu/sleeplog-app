@@ -82,7 +82,7 @@ export default {
     this.initEntries()
 
     if (isLoggedIn) {
-      this.updateProfileEntries();
+      this.updateProfileEntries()
     }
 
     // If not your entries
