@@ -17,7 +17,9 @@ const router = new Router({
   mode: 'history',
   scrollBehavior: () => ({ y: 0 }),
   routes: [
-    { path: '/', name: 'home', component: Home },
+    { path: '/home', name: 'home', component: Home },
+    
+    { path: '/', name: 'intro', component: Intro },
 
     { path: '/results', name: 'results', component: Search },
 
