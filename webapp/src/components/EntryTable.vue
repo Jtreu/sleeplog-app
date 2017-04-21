@@ -81,10 +81,6 @@ export default {
     // Initialize entries object
     this.initEntries()
 
-    if (isLoggedIn) {
-      this.updateProfileEntries()
-    }
-
     // If not your entries
     if (this.userEntries) {
       this.entries = this.userEntries
