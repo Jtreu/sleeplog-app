@@ -212,8 +212,6 @@ func (interactor *UserInteractor) UpdatePassword(oldPassword string, newPassword
 			return fmt.Errorf("New Password must contain at least 7 characters")
 		} else if !pLetter {
 			return fmt.Errorf("New Password must contain at least 1 letter")
-		} else if !pNumber {
-			return fmt.Errorf("New Password must contain at least 1 number")
 		} else if !pUppercase {
 			return fmt.Errorf("New Password must contain at least 1 uppercase character")
 		} else if !pSpecial {
