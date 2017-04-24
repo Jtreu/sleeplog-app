@@ -88,8 +88,7 @@ $primary-color: #22C19A;
 }
 
 .content {
-  position: relative;
-  padding: 40px 20px;
+
   margin: auto;
   text-align: center;
 }
