@@ -1,7 +1,13 @@
 <template lang="html">
   <div class="signin-dialog">
     <div class="content">
-      Information regarding the intro sequence goes here!
+      1. If you don't have an account, create one! It's free!<br />
+	  2. Log in.<br />
+	  3. When viewing your profile, you will a table of dates and times, each of these cells contains the activities you did during that hour.<br />
+	  4. If you want to add an activity, find the correct date and time, and click inside the box.<br />
+	  5. This will bring up a dialog to add activities, you can add as many as you need, but you can only add each activity once.<br />
+	  6. When you have added all activities, make sure you click the checkmark next to the each activity.<br />
+	  7. You have succesffully added activites to your log!<br />
       </div>
     </div>
   </div>
@@ -74,18 +80,11 @@ export default {
 
 $primary-color: #22C19A;
 
-.signin-dialog {
-  position: relative;
-  display: block;
-  background: #FFFFFF;
-  width: 280px;
-}
-
 .content {
-  position: relative;
-  padding: 40px 20px;
-  margin: auto;
-  text-align: center;
+  min-width: 500px;
+  margin-top: 2%;
+  margin-left: 27%;
+  text-align: left;
 }
 
 .form {
