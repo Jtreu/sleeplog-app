@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <h1 align="center">
   <br>
   <a href="https://www.sleeplog-app.com"><img src="https://www.sleeplog-app.com/static/logo.png" alt="WebTorrent" width="200"></a>
@@ -68,3 +69,33 @@
   - go http middleware utility
 
 [![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
+=======
+# api.sleeplog-app.com
+
+> API for managing games, users and sessions for sleeplog-app.
+
+## Build Setup
+
+``` bash
+# install dependencies
+go get dependency-name
+
+# update Godeps dependencies
+godep save
+
+# serve at localhost:8089
+go run main.go
+
+# run unit tests
+go test
+```
+
+## Deploy to Heroku
+
+``` bash
+# Create heroku app
+heroku create
+
+# Deploy
+git push heroku master
+>>>>>>> 7354fc2a94ea7daa25e2fed15fd8b7375aee2224
