@@ -90,7 +90,7 @@ $primary-color: #22C19A;
 .content {
 
   margin: auto;
-  text-align: center;
+  text-align: left;
 }
 
 .form {
