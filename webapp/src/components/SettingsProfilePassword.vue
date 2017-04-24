@@ -24,7 +24,6 @@
           <span v-if="!$v.form.oldPassword.required">Password is required.</span>
           <span v-else-if="!$v.form.oldPassword.passwordHasMinLength">Password must contain at least {{ passwordMinLength }} characters</span>
           <span v-else-if="!$v.form.oldPassword.passwordContainsLetter">Password must contain at least 1 letter</span>
-          <span v-else-if="!$v.form.oldPassword.passwordContainsNumber">Password must contain at least 1 number</span>
           <span v-else-if="!$v.form.oldPassword.passwordContainsUppercase">Password must contain at least 1 uppercase character</span>
           <span v-else-if="!$v.form.oldPassword.passwordContainsSpecial">Password must contain at least 1 special character</span>
         </div>
@@ -40,7 +39,6 @@
           <span v-if="!$v.form.newPassword.required">Password is required.</span>
           <span v-else-if="!$v.form.newPassword.passwordHasMinLength">Password must contain at least {{ passwordMinLength }} characters</span>
           <span v-else-if="!$v.form.newPassword.passwordContainsLetter">Password must contain at least 1 letter</span>
-          <span v-else-if="!$v.form.newPassword.passwordContainsNumber">Password must contain at least 1 number</span>
           <span v-else-if="!$v.form.newPassword.passwordContainsUppercase">Password must contain at least 1 uppercase character</span>
           <span v-else-if="!$v.form.newPassword.passwordContainsSpecial">Password must contain at least 1 special character</span>
         </div>

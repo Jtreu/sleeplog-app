@@ -85,8 +85,6 @@ func (interactor *UserInteractor) Create(email, username, fullname, password str
 			return domain.User{}, fmt.Errorf("Password must contain at least 7 characters")
 		} else if !pLetter {
 			return domain.User{}, fmt.Errorf("Password must contain at least 1 letter")
-		} else if !pNumber {
-			return domain.User{}, fmt.Errorf("Password must contain at least 1 number")
 		} else if !pUppercase {
 			return domain.User{}, fmt.Errorf("Password must contain at least 1 uppercase character")
 		} else if !pSpecial {
@@ -212,8 +210,6 @@ func (interactor *UserInteractor) UpdatePassword(oldPassword string, newPassword
 			return fmt.Errorf("New Password must contain at least 7 characters")
 		} else if !pLetter {
 			return fmt.Errorf("New Password must contain at least 1 letter")
-		} else if !pNumber {
-			return fmt.Errorf("New Password must contain at least 1 number")
 		} else if !pUppercase {
 			return fmt.Errorf("New Password must contain at least 1 uppercase character")
 		} else if !pSpecial {
@@ -294,8 +290,6 @@ func (interactor *UserInteractor) UpdatePasswordWithCode(code, password string) 
 			return fmt.Errorf("Password must contain at least 7 characters")
 		} else if !pLetter {
 			return fmt.Errorf("Password must contain at least 1 letter")
-		} else if !pNumber {
-			return fmt.Errorf("Password must contain at least 1 number")
 		} else if !pUppercase {
 			return fmt.Errorf("Password must contain at least 1 uppercase character")
 		} else if !pSpecial {
