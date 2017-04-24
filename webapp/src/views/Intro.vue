@@ -80,16 +80,10 @@ export default {
 
 $primary-color: #22C19A;
 
-.signin-dialog {
-  position: relative;
-  display: block;
-  background: #FFFFFF;
-  width: 280px;
-}
-
 .content {
-
-  margin: auto;
+  min-width: 500px;
+  margin-top: 2%;
+  margin-left: 27%;
   text-align: left;
 }
 
