@@ -7,12 +7,14 @@ import router from './router'
 import { sync } from 'vuex-router-sync'
 
 import Vuelidate from 'vuelidate'
+import BootstrapVue from 'bootstrap-vue'
 
 // sync the router with the vuex store.
 // this registers `store.state.route`
 sync(store, router)
 
 Vue.use(Vuelidate)
+Vue.use(BootstrapVue)
 
 /* eslint-disable no-new */
 const app = new Vue({

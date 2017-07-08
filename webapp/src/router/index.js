@@ -5,6 +5,7 @@ Vue.use(Router)
 
 import Home from '../views/Home'
 import Intro from '../views/Intro'
+import About from '../views/About'
 
 import Search from '../views/Search'
 import Profile from '../views/Profile'
@@ -19,6 +20,8 @@ const router = new Router({
   routes: [
     { path: '/home', name: 'home', component: Home },
     { path: '/', name: 'intro', component: Intro },
+
+    { path: '/about', name: 'about', component: About },
 
     { path: '/results', name: 'results', component: Search },
 

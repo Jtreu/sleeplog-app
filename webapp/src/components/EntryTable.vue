@@ -164,7 +164,7 @@ export default {
         pm.push(i + 'p')
       }
       pm.push('MIDNIGHT')
-      this.times = pm.concat(am)
+      this.times = am.concat(pm)
     },
     generateDates () {
       var dates = [new Date()]

@@ -1,16 +1,32 @@
 <template lang="html">
-  <div class="signin-dialog">
-    <div class="content">
-      1. If you don't have an account, create one! It's free!<br />
-	  2. Log in.<br />
-	  3. When viewing your profile, you will a table of dates and times, each of these cells contains the activities you did during that hour.<br />
-	  4. If you want to add an activity, find the correct date and time, and click inside the box.<br />
-	  5. This will bring up a dialog to add activities, you can add as many as you need, but you can only add each activity once.<br />
-	  6. When you have added all activities, make sure you click the checkmark next to the each activity.<br />
-	  7. You have succesffully added activites to your log!<br />
-      </div>
-    </div>
-  </div>
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <link href="https://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet">
+      <meta charset="utf-8">
+      <title>Intro</title>
+    </head>
+    <body>
+      <h1>Sleep Log App</h1>
+      <h2>Welcome!</h2>
+      <h3>Instructions</h3>
+        <div class="content">
+          <div class="row">
+            <div class="col-xs-8">
+            1. If you don't have an account, create one! It's free!<br />
+            2. Log in.<br />
+            3. When viewing your profile, you have will a table of dates and times, each of these cells contains the activities you did during that hour.<br />
+            4. If you want to add an activity, find the correct date and time, and click inside the box.<br />
+            5. This will bring up a dialog to add activities, you can add as many as you need, but you can only add each activity once.<br />
+            6. When you have added all activities, make sure you click the checkmark next to the each activity.<br />
+            7. When you click out of the dialog window, you will have succesffully added activites to your log!<br />
+            8. Sleep Tight!<br />
+            </div>
+          </div>
+        </div>
+    </body>
+  </html>
+
 </template>
 
 <script>
@@ -80,11 +96,28 @@ export default {
 
 $primary-color: #22C19A;
 
+h1 {
+    font-size: 4em;
+}
+
+h2 {
+  font-size: 2em;
+}
+
+h3 {
+  font-size: 1.25em;
+  text-decoration: underline;
+}
+
 .content {
   min-width: 500px;
   margin-top: 2%;
   margin-left: 27%;
   text-align: left;
+  font-family: 'Slabo 27px', serif;
+  font-size: 1.25em;
+  font-weight: bold;
+  background-color: rgb(229, 240, 227);
 }
 
 .form {
