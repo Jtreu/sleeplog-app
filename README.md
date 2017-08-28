@@ -7,7 +7,7 @@
   <br>
 </h1>
 
-> An activity logger for neurologists and patients
+> An activity logger for neurologists and patients<br/>
 > NOTE: This project is put on hold due to issues with the current build and compliance with the Health Insurance Portability and Accountability Act
 
 ## Services
