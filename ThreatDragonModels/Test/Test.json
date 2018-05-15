@@ -1,0 +1,12 @@
+{
+  "summary": {
+    "title": "Test",
+    "owner": "Test",
+    "description": "a dead app"
+  },
+  "detail": {
+    "contributors": [],
+    "diagrams": [],
+    "reviewer": "test"
+  }
+}
