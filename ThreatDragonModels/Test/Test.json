@@ -5,8 +5,18 @@
     "description": "a dead app"
   },
   "detail": {
-    "contributors": [],
-    "diagrams": [],
+    "contributors": [
+      {
+        "name": "Me"
+      }
+    ],
+    "diagrams": [
+      {
+        "title": "Test",
+        "thumbnail": "./public/content/images/thumbnail.jpg",
+        "id": 0
+      }
+    ],
     "reviewer": "test"
   }
 }
